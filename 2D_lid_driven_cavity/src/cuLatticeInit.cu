@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "barracuda.h"
 
-//=============================================================================
+//==============================================================================
 void cuLatticeInit(void)
 {
   float *lat[9];
@@ -50,24 +50,24 @@ void cuLatticeInit(void)
 
   map = (unsigned int*) mxMalloc(SIZE_I);
 
-  // fluid
+  // Fluid
   for (n = 0; n < LAT_W; n++) {
     for (m = 0; m < LAT_H; m++) {
       map[n + m * LAT_W] = GEO_FLUID;
     }
   }
 
-  // top/bottom
+  // Top/bottom
   for (n = 0; n < LAT_W; n++) {
     map[n] = GEO_WALL;
   }
 
-  // left /right
+  // Left/right
   for (n = 0; n < LAT_H; n++) {
     map[n * LAT_W] = map[LAT_W - 1 + n * LAT_W] = GEO_WALL;
   }
 
-  //top
+  // Top
   for (n = 0; n < LAT_W; n++) {
     map[(LAT_H - 1) * LAT_W + n] = GEO_INFLOW;
   }
@@ -118,11 +118,11 @@ void cuLatticeInit(void)
   mxFree(map);
 }
 
-//=============================================================================
+//==============================================================================
 void mexFunction(int nlhs, mxArray *plhs[],
                  int nrhs, const mxArray *prhs[])
 {
-  // check for proper number of arguments
+  // Check for proper number of arguments
   if (nrhs != 0) {
     mexErrMsgTxt("Too many input arguments.");
   } else if (nlhs > 1) {

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "barracuda.h"
 
-//=============================================================================
+//==============================================================================
 __global__ void knCollidePropogate(unsigned int *map, dist_ptr_t dist_in[],
                                    dist_ptr_t dist_out[], float *rho_out,
                                    float *vx_out, float *vy_out, float *vz_out)
@@ -12,7 +12,7 @@ __global__ void knCollidePropogate(unsigned int *map, dist_ptr_t dist_in[],
   int idx = GBL_IDX(wix, dix, hix);
   int n;
 
-  // equilibrium distributions
+  // Equilibrium distributions
   dist_t dist_eq[N_FLUID];
   dist_t dist_thd[N_FLUID];
 
@@ -21,10 +21,10 @@ __global__ void knCollidePropogate(unsigned int *map, dist_ptr_t dist_in[],
 
   const float tau[N_FLUID] = {TAU_1, TAU_2};
 
-  // shared variables for in-block propagation
+  // Shared variables for in-block propagation
   ///__shared__ propa_t dist_blk[BLOCK_SIZE_W * BLOCK_SIZE_D * BLOCK_SIZE_H];
 
-  // cache the distribution in local variables
+  // Cache the distribution in local variables
   for (n = 0; n < N_FLUID; n++) {
     dist_thd[n].fC  = dist_in[n].fC [idx];
     dist_thd[n].fE  = dist_in[n].fE [idx];
@@ -47,7 +47,7 @@ __global__ void knCollidePropogate(unsigned int *map, dist_ptr_t dist_in[],
     dist_thd[n].fDS = dist_in[n].fDS[idx];
   }
 
-  // macroscopic quantities for the current cell
+  // Macroscopic quantities for the current cell
   for (n = 0; n < N_FLUID; n++) {
     rho[n] = dist_thd[n].fC  + dist_thd[n].fE  + dist_thd[n].fW  +
              dist_thd[n].fS  + dist_thd[n].fN  + dist_thd[n].fNE +
@@ -85,9 +85,9 @@ __global__ void knCollidePropogate(unsigned int *map, dist_ptr_t dist_in[],
     vz_out[idx]  = v[0].z;
   }
 
-  // relaxation
+  // Relaxation
   float Vsq, VCsq;
-  const float Csq = 1.0f / 3.0f; // lattice "speed of sound"
+  const float Csq = 1.0f / 3.0f; // Lattice "speed of sound"
   const float Cdsq = Csq * Csq;
 
   for (n = 0; n < N_FLUID; n++) {
@@ -291,7 +291,7 @@ __global__ void knCollidePropogate(unsigned int *map, dist_ptr_t dist_in[],
   }
 }
 
-//=============================================================================
+//==============================================================================
 void cuCollidePropagate(void)
 {
   unsigned int n;
@@ -325,14 +325,14 @@ void cuCollidePropagate(void)
 
 }
 
-//=============================================================================
+//==============================================================================
 void mexFunction(int nlhs, mxArray *plhs[],
                  int nrhs, const mxArray *prhs[])
 {
   float *param;
   mwSize dims[3] = {LAT_SIZE_W, LAT_SIZE_D, LAT_SIZE_H};
 
-  // check for proper number of arguments
+  // Check for proper number of arguments
   if (nrhs != 1) {
     mexErrMsgTxt("One input required.");
   } else if (nlhs > 4) {

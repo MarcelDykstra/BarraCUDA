@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "barracuda.h"
 
-//=============================================================================
+//==============================================================================
 void cuLatticeInit(void)
 {
   float *lat[3];
@@ -71,7 +71,7 @@ void cuLatticeInit(void)
 
   map = (unsigned int*) mxMalloc(SIZE_I);
 
-  // fluid
+  // Fluid
   for (w = 0; w < LAT_SIZE_W; w++) {
     for (d = 0; d <LAT_SIZE_D; d++) {
       for (h = 0; h < LAT_SIZE_H; h++) {
@@ -80,14 +80,14 @@ void cuLatticeInit(void)
     }
   }
 
-  // top/bottom
+  // Top/bottom
   for(w = 0; w < LAT_SIZE_W; w++) {
     for(d = 0; d < LAT_SIZE_D; d++) {
       map[GBL_IDX(w, d, 0)] = map[GBL_IDX(w, d, LAT_SIZE_H - 1)] = GEO_WALL;
     }
   }
 
-  // front/back
+  // Front/back
   for(w = 0; w < LAT_SIZE_W; w++) {
     for(h = 0; h < LAT_SIZE_H; h++) {
       map[GBL_IDX(w, 0, h)] = GEO_INFLOW;
@@ -95,7 +95,7 @@ void cuLatticeInit(void)
     }
   }
 
-  // left/right
+  // Left/right
   for(d = 0;d < LAT_SIZE_D; d++) {
     for(h = 0; h < LAT_SIZE_H; h++) {
       map[GBL_IDX(0, d, h)] = map[GBL_IDX(LAT_SIZE_W - 1, d, h)] = GEO_WALL;
@@ -188,7 +188,7 @@ void cuLatticeInit(void)
   mxFree(map);
 }
 
-//=============================================================================
+//==============================================================================
 void cudaDeviceProperties(cudaDeviceProp *prop) {
   int count;
   cudaGetDeviceCount(&count);
@@ -197,13 +197,13 @@ void cudaDeviceProperties(cudaDeviceProp *prop) {
   }
 }
 
-//=============================================================================
+//==============================================================================
 void mexFunction(int nlhs, mxArray *plhs[],
                  int nrhs, const mxArray *prhs[])
 {
   cudaDeviceProp prop;
 
-  // check for proper number of arguments
+  // Check for proper number of arguments
   if (nrhs != 0) {
     mexErrMsgTxt("Too many input arguments.");
   } else if (nlhs > 1) {
@@ -212,7 +212,7 @@ void mexFunction(int nlhs, mxArray *plhs[],
 
   cudaDeviceProperties(&prop);
 
-  // check agains hardware
+  // Check agains hardware
   if (BLOCK_SIZE_W * BLOCK_SIZE_D * BLOCK_SIZE_H > prop.maxThreadsPerBlock)
     mexErrMsgTxt("Too many threads per block.");
 

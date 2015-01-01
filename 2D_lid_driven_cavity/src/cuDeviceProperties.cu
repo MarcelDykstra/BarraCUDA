@@ -5,7 +5,7 @@
 
 #define NUMBER_OF_FIELDS (sizeof(field_names) / sizeof(*field_names))
 
-//=============================================================================
+//==============================================================================
 void cudaDeviceProperties(cudaDeviceProp *prop)
 {
   int count;
@@ -15,7 +15,7 @@ void cudaDeviceProperties(cudaDeviceProp *prop)
   }
 }
 
-//=============================================================================
+//==============================================================================
 void mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
 {
   cudaDeviceProp prop;

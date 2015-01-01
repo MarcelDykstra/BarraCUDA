@@ -46,7 +46,7 @@ typedef struct {
   float fSE, fSW, fNE, fNW;
   float fU, fUE, fUW, fUS, fUN;
   float fD, fDE, fDW, fDS, fDN;
-} propa_t; // in-block propagation
+} propa_t; // In-block propagation
 
 typedef struct {
   float fC;

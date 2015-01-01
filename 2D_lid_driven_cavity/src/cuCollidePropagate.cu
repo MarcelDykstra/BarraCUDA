@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "barracuda.h"
 
-//=============================================================================
+//==============================================================================
 __global__ void knCollidePropogate(unsigned int *map, dist_t cd[], dist_t od[],
                                    float *orho, float *ovx, float *ovy)
 {
@@ -10,7 +10,7 @@ __global__ void knCollidePropogate(unsigned int *map, dist_t cd[], dist_t od[],
   int gi = ti + LAT_W * blockIdx.y;
   int n;
 
-  // equilibrium distributions
+  // Equilibrium distributions
   float feq_C[N_FLUID], feq_N[N_FLUID], feq_S[N_FLUID], feq_E[N_FLUID];
   float feq_W[N_FLUID], feq_NE[N_FLUID], feq_NW[N_FLUID], feq_SE[N_FLUID];
   float feq_SW[N_FLUID];
@@ -22,7 +22,7 @@ __global__ void knCollidePropogate(unsigned int *map, dist_t cd[], dist_t od[],
 
   const float tau[N_FLUID] = {TAU_1}; ///, TAU_2};
 
-  // shared variables for in-block propagation
+  // Shared variables for in-block propagation
   __shared__ float fo_E[BLOCK_SIZE];
   __shared__ float fo_W[BLOCK_SIZE];
   __shared__ float fo_SE[BLOCK_SIZE];
@@ -30,7 +30,7 @@ __global__ void knCollidePropogate(unsigned int *map, dist_t cd[], dist_t od[],
   __shared__ float fo_NE[BLOCK_SIZE];
   __shared__ float fo_NW[BLOCK_SIZE];
 
-  // cache the distribution in local variables
+  // Cache the distribution in local variables
   for (n = 0; n < N_FLUID; n++) {
     fi_C[n] = cd[n].fC[gi];
     fi_E[n] = cd[n].fE[gi];
@@ -43,7 +43,7 @@ __global__ void knCollidePropogate(unsigned int *map, dist_t cd[], dist_t od[],
     fi_SW[n] = cd[n].fSW[gi];
   }
 
-  // macroscopic quantities for the current cell
+  // Macroscopic quantities for the current cell
   for (n = 0; n < N_FLUID; n++) {
     rho[n] = fi_C[n] + fi_E[n] + fi_W[n] + fi_S[n] + fi_N[n] + fi_NE[n] +
              fi_NW[n] + fi_SE[n] + fi_SW[n];
@@ -65,7 +65,7 @@ __global__ void knCollidePropogate(unsigned int *map, dist_t cd[], dist_t od[],
     ovy[gi] = v[0].y;
   }
 
-  // relaxation
+  // Relaxation
   float Cusq[N_FLUID];
 
   for (n = 0; n < N_FLUID; n++) {
@@ -170,14 +170,14 @@ __global__ void knCollidePropogate(unsigned int *map, dist_t cd[], dist_t od[],
 
     __syncthreads();
 
-    // the leftmost thread is not updated in this block
+    // The leftmost thread is not updated in this block
     if (tix > 0) {
       od[n].fE[gi] = fo_E[tix];
       if (blockIdx.y > 0)          od[n].fSE[gi - LAT_W] = fo_SE[tix];
       if (blockIdx.y < LAT_H - 1)  od[n].fNE[gi + LAT_W] = fo_NE[tix];
     }
 
-    // the rightmost thread is not updated in this block
+    // The rightmost thread is not updated in this block
     if (tix < blockDim.x - 1) {
       od[n].fW[gi] = fo_W[tix];
       if (blockIdx.y > 0)          od[n].fSW[gi - LAT_W] = fo_SW[tix];
@@ -187,7 +187,7 @@ __global__ void knCollidePropogate(unsigned int *map, dist_t cd[], dist_t od[],
 
 }
 
-//=============================================================================
+//==============================================================================
 void cuCollidePropagate(void)
 {
   unsigned int n;
@@ -198,7 +198,7 @@ void cuCollidePropagate(void)
 
   for (n=0; n < 400; n++) {
     if (n % 299 == 0) {
-      //TODO: Do not pass dev_state->.... pointer.
+      //TODO: Do not pass dev_state->.... pointer
       knCollidePropogate <<<grid,BLOCK_SIZE>>>
         (state.dev_map, dev_state->dev_dist2, dev_state->dev_dist1,
          state.dev_rho, state.dev_vx, state.dev_vy);
@@ -216,7 +216,7 @@ void cuCollidePropagate(void)
   }
 }
 
-//=============================================================================
+//==============================================================================
 void mexFunction(int nlhs, mxArray *plhs[],
                  int nrhs, const mxArray *prhs[])
 {
@@ -224,7 +224,7 @@ void mexFunction(int nlhs, mxArray *plhs[],
   float *param;
   unsigned int n, m;
 
-  // check for proper number of arguments
+  // Check for proper number of arguments
   if (nrhs != 1) {
     mexErrMsgTxt("One input required.");
   } else if (nlhs > 3) {
