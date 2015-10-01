@@ -18,7 +18,9 @@ for n = 1:100,
   set(gcf, 'Color', [1 1 1]); box on;
   set(gca, 'DataAspectRatio', [1 1 1]);
   view(232, -56); lighting gouraud;
-  light('Position', [-10 10 -20], 'Style', 'infinite')
+  light('Position', [-10 10 -20], 'Style', 'infinite');
+  drawnow;
+
   % % frame = getframe(gcf);
   % % aviobj = addframe(aviobj,frame);
 end

@@ -19,14 +19,14 @@ void destroyState(void)
 //==============================================================================
 void writeState(mxArray *plhs[])
 {
-  long *ptr;
+  long long *ptr;
 
   state.magic = 0xBAACDA;
 
   cudaMemcpy(dev_state, &state, sizeof(state_t), cudaMemcpyHostToDevice);
 
-  ptr = (long *) mxMalloc(sizeof(long));
-  ptr[0] = (long) dev_state;
+  ptr = (long long *) mxMalloc(sizeof(state_t *));
+  ptr[0] = (long long) dev_state;
   plhs[0] = mxCreateNumericArray(0, 0, mxUINT64_CLASS, mxREAL);
   mxSetPr(plhs[0], (double *) ptr);
   mxSetM(plhs[0], 1); mxSetN(plhs[0], 1);
@@ -41,9 +41,9 @@ void syncState(void)
 //==============================================================================
 bool readState(const mxArray *prhs[])
 {
-  long *ptr;
+  long long *ptr;
 
-  ptr = (long *) mxGetData(prhs[0]);
+  ptr = (long long *) mxGetData(prhs[0]);
   dev_state = (state_t *) ptr[0];
 
   cudaMemcpy(&state, dev_state, sizeof(state_t), cudaMemcpyDeviceToHost);

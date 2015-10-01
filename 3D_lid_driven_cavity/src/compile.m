@@ -7,8 +7,8 @@ if strcmpi(computer('arch'), 'win32') || strcmpi(computer('arch'), 'win64')
   %     run-mex-functions-containing-cuda-code.html ]
   % - [ http://www.blinnov.com/en/2010/06/04/
   %     microsoft-was-unexpected-at-this-time/ ] -- 
-  %   required removing two '&quot;' in config XML line
-  %  'LIBPATH="&quot;$VSROOT\VC\Lib\amd64&quot;"'
+  %   requires removing two '&quot;' in config XML line
+  %   'LIBPATH="&quot;$VSROOT\VC\Lib\amd64&quot;"'
   % - Use 'mex -v' and in config XML 'nvcc -v' for verbose 
   %   information to solve issues.
 
