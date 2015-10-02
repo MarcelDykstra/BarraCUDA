@@ -19,7 +19,7 @@ for n = 1:100,
   set(gca, 'DataAspectRatio', [1 1 1]);
   view(232, -56); lighting gouraud;
   light('Position', [-10 10 -20], 'Style', 'infinite');
-  draw now;
+  drawnow;
 
   % % frame = getframe(gcf);
   % % aviobj = addframe(aviobj, frame);

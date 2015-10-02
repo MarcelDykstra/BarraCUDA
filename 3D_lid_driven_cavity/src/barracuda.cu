@@ -19,7 +19,7 @@ void destroyState(void)
 //==============================================================================
 void writeState(mxArray *plhs[])
 {
-  long lonb *ptr;
+  long long *ptr;
 
   state.magic = 0xBAACDA;
 

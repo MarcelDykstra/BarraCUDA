@@ -51,4 +51,3 @@ bool readState(const mxArray *prhs[])
   if (state.magic != 0xBAACDA) return false;
   return true;
 }
-
