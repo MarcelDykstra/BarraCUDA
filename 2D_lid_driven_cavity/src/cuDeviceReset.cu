@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "barracuda.h"
 
-//==============================================================================
+//------------------------------------------------------------------------------
 void mexFunction(int nlhs, mxArray *plhs[],
                  int nrhs, const mxArray *prhs[])
 {

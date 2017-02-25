@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "barracuda.h"
 
-//==============================================================================
+//------------------------------------------------------------------------------
 void cuLatticeInit(void)
 {
   float *lat[3];
@@ -188,7 +188,7 @@ void cuLatticeInit(void)
   mxFree(map);
 }
 
-//==============================================================================
+//------------------------------------------------------------------------------
 void cudaDeviceProperties(cudaDeviceProp *prop) {
   int count;
   cudaGetDeviceCount(&count);
@@ -197,7 +197,7 @@ void cudaDeviceProperties(cudaDeviceProp *prop) {
   }
 }
 
-//==============================================================================
+//------------------------------------------------------------------------------
 void mexFunction(int nlhs, mxArray *plhs[],
                  int nrhs, const mxArray *prhs[])
 {

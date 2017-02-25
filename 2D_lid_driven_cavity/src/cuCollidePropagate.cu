@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "barracuda.h"
 
-//==============================================================================
+//------------------------------------------------------------------------------
 __global__ void knCollidePropogate(unsigned int *map, dist_t cd[], dist_t od[],
                                    float *orho, float *ovx, float *ovy)
 {
@@ -187,7 +187,7 @@ __global__ void knCollidePropogate(unsigned int *map, dist_t cd[], dist_t od[],
 
 }
 
-//==============================================================================
+//------------------------------------------------------------------------------
 void cuCollidePropagate(void)
 {
   unsigned int n;
@@ -216,7 +216,7 @@ void cuCollidePropagate(void)
   }
 }
 
-//==============================================================================
+//------------------------------------------------------------------------------
 void mexFunction(int nlhs, mxArray *plhs[],
                  int nrhs, const mxArray *prhs[])
 {
