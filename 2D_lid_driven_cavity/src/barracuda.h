@@ -24,14 +24,14 @@
 
 
 typedef struct {
-  float *fC, *fE, *fW, *fS, *fN, *fSE, *fSW, *fNE, *fNW;
+    float *fC, *fE, *fW, *fS, *fN, *fSE, *fSW, *fNE, *fNW;
 } dist_t;
 
 typedef struct {
-  unsigned int magic;
-  unsigned int *dev_map;
-  float *dev_vx, *dev_vy, *dev_rho;
-  dist_t dev_dist1[N_FLUID], dev_dist2[N_FLUID];
+    unsigned int magic;
+    unsigned int *dev_map;
+    float *dev_vx, *dev_vy, *dev_rho;
+    dist_t dev_dist1[N_FLUID], dev_dist2[N_FLUID];
 } state_t;
 
 extern state_t state;
